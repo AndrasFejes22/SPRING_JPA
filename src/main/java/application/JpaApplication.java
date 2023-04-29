@@ -1,6 +1,7 @@
 package application;
 
 import config.JpaConfiguration;
+import dao.ProductDao;
 import model.Customer;
 import model.Product;
 import org.slf4j.Logger;
@@ -37,6 +38,19 @@ public class JpaApplication {
         //LOGGER.info("customerList: {}", customerList);
 
         queryByExample(customerRepository);
+
+        ProductDao productDao = new ProductDao();
+        List<Customer> customersByPattern = productDao.findCustomerByPattern("D");
+        //LOGGER.info("customersByPattern: {}", customersByPattern);
+        for (int i = 0; i < customersByPattern.size(); i++) {
+            LOGGER.info("CustomerID: {}", customersByPattern.get(i).getCustomerID());
+            LOGGER.info("LastName: {}", customersByPattern.get(i).getLastName());
+            LOGGER.info("FirstName: {}", customersByPattern.get(i).getFirstName());
+            System.out.println("------------------------");
+        }
+
+        List<String> customerNameByPattern = productDao.findCustomerNameByPattern("ová");
+        LOGGER.info("customersByPattern: {}", customerNameByPattern);
 
     }
 
